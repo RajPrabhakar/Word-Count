@@ -1,18 +1,31 @@
 import docx, re
 from docx import Document
 
-file = input("Enter file name:")
-target = input("Enter word:")
+file = 'pap.docx'
+target = [['method', 'program', 'feasibility', 'engineering', 'rahul', 'lax'],
+          ['network', 'security', 'cryptography', 'encryption', 'decryption'],
+          ['machine learning', 'nlp', 'neural', 'deep learning', 'robotics', 'automation'],
+          ['database', 'query', 'records', 'tables', 'sql', 'oracle']]
+domain_total = [0, 0, 0, 0]
+domain = ['Mathematics', 'Communication', 'A.I', 'Database']
+word_count = 0
 fopen = open(file, "rb")
 docu = Document(fopen)
-count = 0
 pattern = re.compile('[\W_]+')
 for para in docu.paragraphs:
     content = para.text
     for word in content.split():
         word = word.lower()
         word = pattern.sub('', word)
-        if target == word:
-            count+=1
-print(count)
+        dom_count = 0
+        for out_list in target:
+            for in_list in out_list:
+                if in_list == word:
+                    domain_total[dom_count]+=1
+            dom_count+=1
+        word_count+=1
+print(word_count)
+for i in range(4):
+    print(domain[i], " : ", domain_total[i])
+    
 
